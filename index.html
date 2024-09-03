@@ -53,7 +53,7 @@
             transition: width 0.5s;
         }
 
-        #ip-info, #warning-message {
+        #ip-info, #warning-message, #camera-info {
             display: none;
         }
 
@@ -74,7 +74,7 @@
         <div id="progress-bar">
             <div id="progress"></div>
         </div>
-        <div>
+        <div id="camera-info">
             <p>Twoja kamera:</p>
             <img id="camera-image" src="weronika.png" alt="Obraz z kamery">
         </div>
@@ -91,6 +91,7 @@
             let progress = document.getElementById("progress");
             let spinner = document.getElementById("spinner");
             let progressBar = document.getElementById("progress-bar");
+            let cameraInfo = document.getElementById("camera-info");
             let ipInfo = document.getElementById("ip-info");
             let warningMessage = document.getElementById("warning-message");
             let randomIp = document.getElementById("random-ip");
@@ -110,6 +111,7 @@
                     clearInterval(interval);
                     spinner.style.display = "none";
                     progressBar.style.display = "none";
+                    cameraInfo.style.display = "block";
                     ipInfo.style.display = "block";
                     warningMessage.style.display = "block";
                     randomIp.textContent = generateRandomIP();
