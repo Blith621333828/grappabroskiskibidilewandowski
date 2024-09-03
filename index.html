@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #animation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #3498db;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #progress-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #progress {
+            height: 100%;
+            width: 0;
+            background-color: #3498db;
+            transition: width 0.5s;
+        }
+
+        #ip-info, #warning-message, #camera-info, #camera-image {
+            display: none;
+        }
+
+        #warning-message {
+            font-size: 0.8em;
+            color: red;
+        }
+
+        #camera-image {
+            margin-top: 10px;
+            width: 200px; /* Możesz dostosować szerokość do swoich potrzeb */
+        }
+    </style>
+</head>
+<body>
+    <div id="animation-container">
+        <div id="spinner"></div>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <div id="camera-info">
+            <p>Twoja kamera:</p>
+            <img id="camera-image" src="weronika.jpg" alt="Obraz z kamery">
+        </div>
+        <div id="ip-info">
+            <p>Twoje IP to: <span id="random-ip"></span></p>
+        </div>
+        <div id="warning-message">
+            <p>Następnym razem uważaj, na jaką stronę wchodzisz ;)</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let progress = document.getElementById("progress");
+            let spinner = document.getElementById("spinner");
+            let progressBar = document.getElementById("progress-bar");
+            let cameraInfo = document.getElementById("camera-info");
+            let ipInfo = document.getElementById("ip-info");
+            let warningMessage = document.getElementById("warning-message");
+            let randomIp = document.getElementById("random-ip");
+
+            // Funkcja generująca losowe IP
+            function generateRandomIP() {
+                return Math.floor(Math.random() * 256) + "." +
+                       Math.floor(Math.random() * 256) + "." +
+                       Math.floor(Math.random() * 256) + "." +
+                       Math.floor(Math.random() * 256);
+            }
+
+            // Symulacja ładowania paska postępu
+            let width = 0;
+            let interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    spinner.style.display = "none";
+                    progressBar.style.display = "none";
+                    cameraInfo.style.display = "block";
+                    ipInfo.style.display = "block";
+                    warningMessage.style.display = "block";
+                    randomIp.textContent = generateRandomIP();
+                } else {
+                    width++;
+                    progress.style.width = width + "%";
+                }
+            }, 50);
+        });
+    </script>
+</body>
+</html>
